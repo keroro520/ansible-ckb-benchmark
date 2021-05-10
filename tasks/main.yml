@@ -1,2 +1,26 @@
 ---
-# tasks file for ansible-ckb-benchmark
+- include: setup.yml
+  become: true
+  tags:
+    - ckb_benchmark_setup
+    - ckb_benchmark_install
+    - ckb_benchmark_configure
+
+- include: install.yml
+  become: true
+  tags:
+    - ckb_benchmark_install
+
+- include: configure.yml
+  become: true
+  tags:
+    - ckb_benchmark_configure
+
+- name: Start CKB Benchmark
+  shell:
+    cmd: |
+      {{ ckb_benchmark_workspace }}/tps-bench bench \
+          --spec {{ ckb_benchmark_workspace }}/tps-bench.toml \
+          --rpc-urls {{ ckb_benchmark_rpc_urls | join(' ') }}
+  tags:
+    - ckb_benchmark_start

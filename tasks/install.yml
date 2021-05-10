@@ -1,0 +1,42 @@
+---
+- name: Install CKB Benchmark From Local Source
+  copy:
+    force: true
+    src: "{{ ckb_benchmark_local_source }}"
+    dest: "{{ ckb_benchmark_workspace }}/ckb"
+    group: ckb
+    owner: ckb
+    mode: "+x"
+  when:
+    - ckb_benchmark_local_source is defined and ckb_benchmark_local_source != ''
+
+- name: Install CKB Benchmark From Remote Source
+  block:
+    - name: Download CKB Benchmark Tarball From URL
+      become: true
+      get_url:
+        force: true
+        url: "{{ ckb_benchmark_download_url }}"
+        dest: /tmp/
+
+    - name: Unarchive CKB Benchmark Tarball
+      become: true
+      unarchive:
+        remote_src: true
+        src: "/tmp/{{ ckb_benchmark_download_url | basename }}"
+        dest: "{{ ckb_benchmark_workspace }}"
+        mode: 0777
+        extra_opts:
+          - --wildcards
+          - '*tps-bench'
+          - --transform
+          - 's/.*\/tps-bench$/tps-bench/'
+      when: not ckb_benchmark_download_url.endswith(".7z")
+
+    - name: Unarchive CKB Benchmark 7z-Tarball
+      become: true
+      shell: |
+        7z e -y -o'{{ ckb_benchmark_workspace }}' '/tmp/{{ ckb_benchmark_download_url | basename }}' '*/ckb'
+      when: ckb_benchmark_download_url.endswith(".7z")
+  when:
+    - (ckb_benchmark_local_source is not defined or ckb_benchmark_local_source == '') and ckb_benchmark_download_url is defined
