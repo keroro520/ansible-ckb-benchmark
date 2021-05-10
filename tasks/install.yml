@@ -3,7 +3,7 @@
   copy:
     force: true
     src: "{{ ckb_benchmark_local_source }}"
-    dest: "{{ ckb_benchmark_workspace }}/ckb"
+    dest: "{{ ckb_benchmark_workspace }}/tps-bench"
     group: ckb
     owner: ckb
     mode: "+x"
