@@ -1,0 +1,31 @@
+# Data Directory
+data_dir = "{{ ckb_benchmark_data_dir }}"
+
+# Account Info
+bencher_private_key = "{{ ckb_benchmark_block_assembler.key }}"
+
+# Miner will generate blocks until capacity is enough for benching
+ensure_matured_capacity_greater_than = {{ ckb_benchmark_ensure_matured_capacity_greater_than }}
+
+# Network Params
+## - consensus_cellbase_maturity TODO: Add RPC get_consensus_params
+## - confirmation_blocks
+consensus_cellbase_maturity = {{ ckb_benchmark_consensus_cellbase_maturity }}
+confirmation_blocks = {{ ckb_benchmark_confirmation_blocks }}
+
+{# choose the method to eval network stable                #}
+{# CustomBlocksElapsed => { warmup = xx, window = xx }     #}
+{# RecentBlocktxnsNearly => { margin = xx, window = xx } } #}
+method_to_eval_network_stable = {{ ckb_benchmark_method_to_eval_network_stable }}
+
+# Dummy Miner
+## - block_time :: millisecond
+[miner]
+private_key = "{{ ckb_benchmark_block_assembler.key }}"
+block_time = {{ ckb_benchmark_block_time }}
+
+{% for item in ckb_benchmark_benchmarks %}
+[[benchmarks]]
+transaction_type = "{{ item.transaction_type }}"
+send_delay = {{ item.send_delay }}
+{% endfor %}
