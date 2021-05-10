@@ -5,6 +5,7 @@ ckb_benchmark_local_source: ""
 ckb_benchmark_workspace: /var/lib/ckb-benchmark
 ckb_benchmark_data_dir:  /var/lib/ckb-benchmark/data
 
+ckb_benchmark_rpc_urls: [ "http://127.0.0.1:8114" ]
 ckb_benchmark_ensure_matured_capacity_greater_than: 10000000000000
 ckb_benchmark_consensus_cellbase_maturity: 1
 ckb_benchmark_confirmation_blocks: 6
