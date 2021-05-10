@@ -1,2 +1,20 @@
 ---
-# defaults file for ansible-ckb-benchmark
+ckb_benchmark_download_url: https://github.com/nervosnetwork/ckb-bench/releases/download/v0.41.0/ckb_benchmark_v0.41.0_x86_64-unknown-linux-gnu.tar.gz
+ckb_benchmark_local_source: ""
+
+ckb_benchmark_workspace: /var/lib/ckb-benchmark
+ckb_benchmark_data_dir:  /var/lib/ckb-benchmark/data
+
+ckb_benchmark_ensure_matured_capacity_greater_than: 10000000000000
+ckb_benchmark_consensus_cellbase_maturity: 1
+ckb_benchmark_confirmation_blocks: 6
+ckb_benchmark_method_to_eval_network_stable: "{ CustomBlocksElapsed = { warmup = 20, window = 21 } }"
+ckb_benchmark_block_time: 1000
+
+ckb_benchmark_benchmarks:
+  - transaction_type: "In2Out2"
+    send_delay: 1000
+
+# ckb_benchmark_block_assembler:
+#   key:
+#   args:
