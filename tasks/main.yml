@@ -19,7 +19,7 @@
 - name: Start CKB Benchmark
   shell:
     cmd: |
-      {{ ckb_benchmark_workspace }}/tps-bench bench \
+      timeout 40m {{ ckb_benchmark_workspace }}/tps-bench bench \
           --spec {{ ckb_benchmark_workspace }}/tps-bench.toml \
           --rpc-urls {{ ckb_benchmark_rpc_urls | join(' ') }}
   tags:
