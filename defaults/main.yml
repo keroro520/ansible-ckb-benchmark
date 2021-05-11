@@ -1,5 +1,6 @@
 ---
-ckb_benchmark_download_url: https://github.com/nervosnetwork/ckb-bench/releases/download/v0.41.0/ckb_benchmark_v0.41.0_x86_64-unknown-linux-gnu.tar.gz
+ckb_benchmark_version: "rc-v0.1.1"
+ckb_benchmark_download_url: "https://github.com/nervosnetwork/ckb-bench/releases/download/{{ ckb_benchmark_version }}/tps-bench_{{ ckb_benchmark_version }}_x86_64-unknown-linux-gnu.tar.gz"
 ckb_benchmark_local_source: ""
 
 ckb_benchmark_workspace: /var/lib/ckb-benchmark
