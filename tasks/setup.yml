@@ -11,7 +11,7 @@
     create_home: true
     generate_ssh_key: true
 
-- name: Ensure CKB Benchmark Configuration Directories Exist
+- name: Ensure CKB-Bench Directories Exist
   become: true
   file:
     path: "{{ item }}"

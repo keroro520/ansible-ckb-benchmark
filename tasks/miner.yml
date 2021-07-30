@@ -1,0 +1,14 @@
+---
+- name: Copy CKB-Bench Miner Service File
+  become: true
+  template:
+    src: ckb-bench-miner.service.j2
+    dest: /etc/systemd/system/ckb-bench-miner.service
+
+- name: Restart CKB-Bench Miner
+  become: true
+  systemd:
+    name: ckb-bench-miner
+    state: restarted
+    daemon_reload: true
+    enabled: true
