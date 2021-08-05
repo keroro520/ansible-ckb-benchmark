@@ -18,6 +18,8 @@
     - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 2 }
     - { tx_interval_ms: 1, bench_time_ms: 300000, n_inout: 1 }
     - { tx_interval_ms: 1, bench_time_ms: 300000, n_inout: 2 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 100 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 1000 }
 
 - name: Generate Report
   shell:
