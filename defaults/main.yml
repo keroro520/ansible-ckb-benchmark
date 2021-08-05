@@ -1,23 +1,4 @@
 ---
-ckb_benchmark_version: "rc-v0.1.1"
-ckb_benchmark_download_url: "https://github.com/nervosnetwork/ckb-bench/releases/download/{{ ckb_benchmark_version }}/tps-bench_{{ ckb_benchmark_version }}_x86_64-unknown-linux-gnu.tar.gz"
-ckb_benchmark_local_source: ""
-
-ckb_benchmark_workspace: /var/lib/ckb-benchmark
-ckb_benchmark_data_dir:  /var/lib/ckb-benchmark/data
-
-ckb_benchmark_skip_best_tps_caculation: false
-ckb_benchmark_rpc_urls: [ "http://127.0.0.1:8114" ]
-ckb_benchmark_ensure_matured_capacity_greater_than: 10000000000000
-ckb_benchmark_consensus_cellbase_maturity: 1
-ckb_benchmark_confirmation_blocks: 6
-ckb_benchmark_method_to_eval_network_stable: "{ CustomBlocksElapsed = { warmup = 20, window = 21 } }"
-ckb_benchmark_block_time: 1000
-
-ckb_benchmark_benchmarks:
-  - transaction_type: "In2Out2"
-    send_delay: 1000
-
-# ckb_benchmark_block_assembler:
-#   key:
-#   args:
+ckb_benchmark_version: "v0.0.2"
+ckb_benchmark_download_url: "https://github.com/keroro520/ckb-integration-test/releases/download/{{ ckb_benchmark_version }}/ckb-bench-{{ ckb_benchmark_version }}-unknown-linux-gnu.tar.gz"
+# ckb_benchmark_local_source: ""

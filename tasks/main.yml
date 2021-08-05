@@ -2,37 +2,27 @@
 - include: setup.yml
   become: true
   tags:
-    - ckb_benchmark_setup
     - ckb_benchmark_install
-    - ckb_benchmark_configure
 
 - include: install.yml
   become: true
   tags:
     - ckb_benchmark_install
 
-- include: configure.yml
+- include: miner.yml
   become: true
   tags:
-    - ckb_benchmark_configure
+    - ckb_benchmark_prepare
 
-- name: Start CKB Benchmark
-  shell:
-    cmd: |
-      timeout 40m {{ ckb_benchmark_workspace }}/tps-bench bench \
-          --spec {{ ckb_benchmark_workspace }}/tps-bench.toml \
-          --rpc-urls {{ ckb_benchmark_rpc_urls | join(' ') }}
+- include: prepare.yml
+  tags:
+    - ckb_benchmark_prepare
+
+- include: miner.yml
+  become: true
   tags:
     - ckb_benchmark_start
-  when: ckb_benchmark_skip_best_tps_caculation is not defined or ckb_benchmark_skip_best_tps_caculation == false
 
-- name: Start CKB Benchmark
-  shell:
-    cmd: |
-      timeout 40m {{ ckb_benchmark_workspace }}/tps-bench bench \
-          --spec {{ ckb_benchmark_workspace }}/tps-bench.toml \
-          --rpc-urls {{ ckb_benchmark_rpc_urls | join(' ') }} \
-          --skip-best-tps-caculation
+- include: bench.yml
   tags:
     - ckb_benchmark_start
-  when: ckb_benchmark_skip_best_tps_caculation is defined and ckb_benchmark_skip_best_tps_caculation == true

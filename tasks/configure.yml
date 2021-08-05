@@ -1,7 +1,0 @@
-- name: Create TPS-Bench Configuration File
-  template:
-    src: tps-bench.toml.j2
-    dest: "{{ ckb_benchmark_workspace }}/tps-bench.toml"
-    group: ckb
-    owner: ckb
-    mode: 0666
