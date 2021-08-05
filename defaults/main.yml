@@ -1,4 +1,4 @@
 ---
 ckb_benchmark_version: "v0.0.2"
-ckb_benchmark_download_url: "https://github.com/keroro520/ckb-integration-test/releases/download/{{ ckb_benchmark_version }}/ckb-bench-{{ ckb_benchmark_version }}-unknown-linux-gnu.tar.gz"
+ckb_benchmark_download_url: "https://github.com/nervosnetwork/ckb-integration-test/releases/download/{{ ckb_benchmark_version }}/ckb-bench-{{ ckb_benchmark_version }}-unknown-linux-gnu.tar.gz"
 # ckb_benchmark_local_source: ""
