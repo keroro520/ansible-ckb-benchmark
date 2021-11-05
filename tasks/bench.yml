@@ -24,5 +24,5 @@
 - name: Generate Report
   shell:
     cmd: |
-      grep -o 'metrics: .*' {{ ckb_benchmark_logfile }} \
-      | sed 's/metrics: //' > {{ ckb_benchmark_jsonfile }}
+      grep -o 'metrics: .*' {{ ckb_benchmark_logfile }} | sed 's/metrics: //' > {{ ckb_benchmark_jsonfile }}
+      grep -o 'markdown report: .*' {{ ckb_benchmark_logfile }} | sed 's/markdown report: //' > {{ ckb_benchmark_markdownfile }}
