@@ -4,6 +4,7 @@ ckb_benchmark_workspace: "/var/lib/ckb-benchmark"
 ckb_benchmark_data_dir: "{{ ckb_benchmark_workspace }}/data"
 ckb_benchmark_logfile: "{{ ckb_benchmark_data_dir }}/ckb-bench.log"
 ckb_benchmark_jsonfile: "{{ ckb_benchmark_data_dir }}/ckb-bench.json"
+ckb_benchmark_markdownfile: "{{ ckb_benchmark_data_dir }}/ckb-bench.brief.md"
 
 ckb_benchmark_n_users: 1000000
 ckb_benchmark_cells_per_user: 1
