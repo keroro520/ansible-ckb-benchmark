@@ -6,8 +6,5 @@ ckb_benchmark_logfile: "{{ ckb_benchmark_data_dir }}/ckb-bench.log"
 ckb_benchmark_jsonfile: "{{ ckb_benchmark_data_dir }}/ckb-bench.json"
 ckb_benchmark_markdownfile: "{{ ckb_benchmark_data_dir }}/ckb-bench.brief.md"
 
-ckb_benchmark_n_users: 1000000
-ckb_benchmark_cells_per_user: 1
-ckb_benchmark_capacity_per_cell: 7100000000
 # 1172 = 1000000 * 1 * 7100000000 /  (11917808219178080 / 1800) + 100
-ckb_benchmark_premine_blocks: "{{ (ckb_benchmark_n_users * ckb_benchmark_cells_per_user * ckb_benchmark_capacity_per_cell / (11917808219178080 / 1800) + 100) | int }}"
+# premine_blocks: "{{ (n_users * cells_per_user * capacity_per_cell / (11917808219178080 / 1800) + 100) | int }}"

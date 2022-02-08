@@ -1,11 +1,27 @@
 ---
-- name: Copy CKB-Bench Miner Service File
+- name: Copy ckb-bench miner service file
   become: true
-  template:
-    src: ckb-bench-miner.service.j2
+  copy:
+    content: |
+      [Unit]
+      Description=CKB Bench Miner
+      After=network.service
+      StartLimitIntervalSec=0
+
+      [Service]
+      Type=simple
+      Restart=no
+      RestartSec=2
+      User=ckb
+      Group=ckb
+      Environment="RUST_LOG=info,ckb-bench=debug"
+      ExecStart={{ ckb_benchmark_workspace }}/ckb-bench miner --rpc-urls {{ ckb_benchmark_rpc_urls[0] }} --mining-interval-ms {{ ckb_benchmark_param.mining_interval_ms }}
+
+      [Install]
+      WantedBy=multi-user.target
     dest: /etc/systemd/system/ckb-bench-miner.service
 
-- name: Restart CKB-Bench Miner
+- name: Restart ckb-bench miner
   become: true
   systemd:
     name: ckb-bench-miner

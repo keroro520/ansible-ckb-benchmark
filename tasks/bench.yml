@@ -1,5 +1,30 @@
 ---
-- name: Benchmark Start
+- name: Benchmark pre-mine blocks
+  environment:
+    RUST_LOG: "info,ckb-bench=debug"
+  shell:
+    cmd: |
+      {{ ckb_benchmark_workspace }}/ckb-bench miner \
+          --rpc-urls {{ ckb_benchmark_rpc_urls[0] }} \
+          --n-blocks {{ ckb_benchmark_param.premine_blocks }} \
+          --mining-interval-ms 0 \
+      | tee --append {{ ckb_benchmark_logfile }}
+
+- name: Dispatch cells to users
+  environment:
+    RUST_LOG: "info,ckb-bench=debug"
+    CKB_BENCH_OWNER_PRIVKEY: "{{ ckb_benchmark_owner_privkey }}"
+  shell:
+    cmd: |
+      {{ ckb_benchmark_workspace }}/ckb-bench dispatch \
+          --rpc-urls          {{ ckb_benchmark_rpc_urls | join(',') }} \
+          --data-dir          {{ ckb_benchmark_data_dir }} \
+          --n-users           {{ ckb_benchmark_param.n_users }} \
+          --cells-per-user    {{ ckb_benchmark_param.cells_per_user }} \
+          --capacity-per-cell {{ ckb_benchmark_param.capacity_per_cell }} \
+      | tee --append {{ ckb_benchmark_logfile }}
+
+- name: Benchmark start
   environment:
     RUST_LOG: "info,ckb-bench=debug"
     CKB_BENCH_OWNER_PRIVKEY: "{{ ckb_benchmark_owner_privkey }}"
@@ -7,24 +32,28 @@
     cmd: |
       {{ ckb_benchmark_workspace }}/ckb-bench bench \
           --rpc-urls {{ ckb_benchmark_rpc_urls | join(',') }} \
-          --n-users  {{ ckb_benchmark_n_users }} \
           --data-dir {{ ckb_benchmark_data_dir }} \
-          --n-inout             {{ item.n_inout }} \
-          --tx-interval-ms      {{ item.tx_interval_ms }} \
-          --bench-time-ms       {{ item.bench_time_ms }} \
+          --n-users             {{ ckb_benchmark_param.n_users }} \
+          --n-inout             {{ ckb_benchmark_param.n_inout }} \
+          --tx-interval-ms      {{ ckb_benchmark_param.tx_interval_ms }} \
+          --bench-time-ms       {{ ckb_benchmark_param.bench_time_ms }} \
       | tee --append {{ ckb_benchmark_logfile }}
-  with_items:
-    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 1 }
-    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 2 }
-    - { tx_interval_ms: 1, bench_time_ms: 300000, n_inout: 1 }
-    - { tx_interval_ms: 1, bench_time_ms: 300000, n_inout: 2 }
-    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 100 }
-    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 1000 }
   poll: 5
   async: 3600
 
-- name: Generate Report
+- name: Benchmark end - generate report
   shell:
     cmd: |
       grep -o 'metrics: .*' {{ ckb_benchmark_logfile }} | sed 's/metrics: //' > {{ ckb_benchmark_jsonfile }}
       grep -o 'markdown report: .*' {{ ckb_benchmark_logfile }} | sed 's/markdown report: //' > {{ ckb_benchmark_markdownfile }}
+
+- name: Benchmark end - collect
+  environment:
+    CKB_BENCH_OWNER_PRIVKEY: "{{ ckb_benchmark_owner_privkey }}"
+  shell:
+    cmd: |
+      {{ ckb_benchmark_workspace }}/ckb-bench collect \
+          --rpc-urls {{ ckb_benchmark_rpc_urls | join(',') }} \
+          --data-dir {{ ckb_benchmark_data_dir }} \
+          --n-users  {{ ckb_benchmark_param.n_users }} \
+      | tee --append {{ ckb_benchmark_logfile }}

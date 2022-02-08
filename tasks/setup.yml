@@ -1,9 +1,9 @@
-- name: Create ckb Group
+- name: Create ckb group
   become: true
   group:
     name: ckb
 
-- name: Create ckb User
+- name: Create ckb user
   become: true
   user:
     name: ckb
@@ -11,7 +11,7 @@
     create_home: true
     generate_ssh_key: true
 
-- name: Ensure CKB-Bench Directories Exist
+- name: Ensure ckb-bench directories exist
   become: true
   file:
     path: "{{ item }}"

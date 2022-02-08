@@ -9,14 +9,10 @@
   tags:
     - ckb_benchmark_install
 
-- include: miner.yml
-  become: true
-  tags:
-    - ckb_benchmark_prepare
-
-- include: prepare.yml
-  tags:
-    - ckb_benchmark_prepare
+- name: 'Assert must required variables'
+  assert:
+    that:
+      - ckb_benchmark_param is defined
 
 - include: miner.yml
   become: true

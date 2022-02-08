@@ -1,5 +1,5 @@
 ---
-- name: Install CKB-Bench From Local Source
+- name: Install ckb-bench from local source
   copy:
     force: true
     src: "{{ ckb_benchmark_local_source }}"
@@ -10,16 +10,16 @@
   when:
     - ckb_benchmark_local_source is defined and ckb_benchmark_local_source != ''
 
-- name: Install CKB-Bench From Remote Source
+- name: Install ckb-bench from remote source
   block:
-    - name: Download CKB-Bench Tarball From URL
+    - name: Download ckb-bench tarball from url
       become: true
       get_url:
         force: true
         url: "{{ ckb_benchmark_download_url }}"
         dest: /tmp/
 
-    - name: Unarchive CKB-Bench Tarball
+    - name: Unarchive ckb-bench tarball
       become: true
       unarchive:
         remote_src: true
@@ -33,7 +33,7 @@
           - 's/.*\/ckb-bench$/ckb-bench/'
       when: not ckb_benchmark_download_url.endswith(".7z")
 
-    - name: Unarchive CKB-Bench 7z-Tarball
+    - name: Unarchive ckb-bench 7z-tarball
       become: true
       shell: |
         7z e -y -o'{{ ckb_benchmark_workspace }}' '/tmp/{{ ckb_benchmark_download_url | basename }}' '*/ckb'
