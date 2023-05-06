@@ -1,4 +1,4 @@
 ---
 ckb_benchmark_version: "v0.0.5"
-ckb_benchmark_download_url: "https://github.com/nervosnetwork/ckb-integration-test/releases/download/{{ ckb_benchmark_version }}/ckb-bench-linux-x86_64.tar.gz"
-# ckb_benchmark_local_source: ""
+ckb_benchmark_download_url: "https://github.com/gpBlockchain/ckb-integration-test/releases/download/v0.08/ckb-bench-linux-x86_64.tar.gz"
+#ckb_benchmark_local_source: ""
