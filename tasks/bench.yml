@@ -12,14 +12,17 @@
           --n-inout             {{ item.n_inout }} \
           --tx-interval-ms      {{ item.tx_interval_ms }} \
           --bench-time-ms       {{ item.bench_time_ms }} \
+          --concurrent-requests {{ item.concurrent_requests }} \
       | tee --append {{ ckb_benchmark_logfile }}
   with_items:
-    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 1 }
-    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 2 }
-    - { tx_interval_ms: 1, bench_time_ms: 300000, n_inout: 1 }
-    - { tx_interval_ms: 1, bench_time_ms: 300000, n_inout: 2 }
-    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 100 }
-    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 1000 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 1 , concurrent_requests: 10 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 2 , concurrent_requests: 10 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 5 , concurrent_requests: 10 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 10 , concurrent_requests: 10 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 20 , concurrent_requests: 10 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 50 , concurrent_requests: 10 }
+    - { tx_interval_ms: 0, bench_time_ms: 300000, n_inout: 100 , concurrent_requests: 10 }
+
   poll: 5
   async: 3600
 
